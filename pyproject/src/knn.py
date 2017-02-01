@@ -32,7 +32,7 @@ def img2vector(filename):
 
 def handwritingClassTest():
     hwLabels =[]
-    trainingFileList = listdir('trainingDigits')
+    trainingFileList = listdir('digits/trainingDigits')
     m = len(trainingFileList)
     trainingMat =zeros((m,1024))
     for i in range(m):
@@ -40,15 +40,15 @@ def handwritingClassTest():
         fileStr = fileNameStr.split('.')[0]
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
-        trainingMat[i,:] =img2vector('trainingDigits/%s'%fileNameStr)
-    testFileList = listdir('testDigits')
+        trainingMat[i,:] =img2vector('digits/trainingDigits/%s'%fileNameStr)
+    testFileList = listdir('digits/testDigits')
     errorCount  =0.0
     mTest = len(testFileList)
     for i  in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest =img2vector('testDigits/%s'%fileNameStr)
+        vectorUnderTest =img2vector('digits/testDigits/%s'%fileNameStr)
         classifierResult =classify0(vectorUnderTest,trainingMat,hwLabels,3)
         print "the classifier came back with %d the real answer is %d"%(classifierResult,classNumStr)
         if(classifierResult != classNumStr):errorCount += 1.0
